@@ -1,4 +1,5 @@
 import pytz
+from types import FunctionType
 from functools import wraps
 from datetime import datetime
 
@@ -6,7 +7,13 @@ from datetime import datetime
 # Using Decorators as loggers
 
 
-def function_logger(a_function):
+def function_logger(a_function: FunctionType) -> FunctionType:
+    """
+    Decorator function. Returns a closure that, when called,
+    will print the time the function was called and a function
+    call representation.
+    """
+
     @wraps(a_function)
     def logger(*args, **kwargs):
         run_datetime = datetime.now(pytz.UTC)

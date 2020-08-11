@@ -4,6 +4,12 @@ from time import perf_counter
 
 
 def function_timer(fn: FunctionType) -> FunctionType:
+    """
+    Decorator function. Wraps a function, and prints
+    the time the function took to run and the password arguments.
+    Returned function keeps wrapped function's signature
+    """
+    # Using the wraps() decorator to keep wrapped function signature
     @wraps(fn)
     def closure(*args, **kwargs):
         start = perf_counter()
@@ -21,32 +27,39 @@ def function_timer(fn: FunctionType) -> FunctionType:
 
 
 ######################################################################################
-# Using a loop
+# Decorating a fibonacci function using a loop
 @function_timer
 def loop_fibonacci(n: int) -> list:
+    # Getting rid of negative values
     n = abs(n)
     if n == 0:
         raise ValueError("Number of Fibonacci value must be other than zero")
-    current_num = 1
+    current_num = 0
     new_number = 1
     while n != 1:
         new_number, current_num = new_number + current_num, new_number
         n -= 1
-    return current_num
+    return new_number
 
 
 ######################################################################################
 
 
-def _recursive_fibonacci(n: int) -> int:
-    if n <= 2:
-        return 1
-    return _recursive_fibonacci(n - 1) + _recursive_fibonacci(n - 2)
-
-
 # Avoiding innecesary calls to the decorator in recursive function
+# by wrapping the recursive function in another function
 @function_timer
 def recursive_fibonacci(n: int) -> int:
+    # Getting rid of negative numbers
+    if n == 0:
+        raise ValueError("Number of Fibonacci value must be other than zero")
+    n = abs(n)
+
+    def _recursive_fibonacci(n: int) -> int:
+        # Fibonacci of 1 and 2 = 1
+        if n < 3:
+            return 1
+        return _recursive_fibonacci(n - 1) + _recursive_fibonacci(n - 2)
+
     return _recursive_fibonacci(n)
 
 
@@ -55,14 +68,17 @@ def recursive_fibonacci(n: int) -> int:
 # Using the reduce function
 @function_timer
 def reduce_fibonacci(n: int) -> int:
+    # Setting an initial tuple
+    # Index 0 is the previous number and index 1 is the new value
     initial_tuple = (0, 1)
+    # A dummy number generator to keep the reduce function running
     dummy = range(n)
-    # n will never be used in the function
+    # n will receive the number from the dumy. It won't be used in the function
     fib_n = reduce(lambda prev, n: (prev[1], prev[0] + prev[1]), dummy, initial_tuple)
     return fib_n[0]
 
 
-print(reduce_fibonacci(1000), end="\n\n")
-print(loop_fibonacci(1000), end="\n\n")
-# Using the recursive
-print(recursive_fibonacci(10))
+# Testing all three decorated functions
+print(reduce_fibonacci(8), end="\n\n")
+print(loop_fibonacci(8), end="\n\n")
+print(recursive_fibonacci(8))

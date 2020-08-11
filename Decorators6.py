@@ -4,8 +4,16 @@ from time import perf_counter
 from datetime import datetime
 from functools import wraps, reduce
 
+# Working on stacked decorators
+
 
 def function_timer(fn: FunctionType) -> FunctionType:
+    """
+    Decorator function. Returns a closure that, when called,
+    will print on the screen the function call representation
+    and the time it took to run.
+    """
+
     @wraps(fn)
     def inner_func(*args, **kwargs):
         start = perf_counter()
@@ -23,6 +31,12 @@ def function_timer(fn: FunctionType) -> FunctionType:
 
 
 def function_logger(a_function):
+    """
+    Decorator function. Returns a closure that, when called,
+    will print the time the function was called and a function
+    call representation.
+    """
+
     @wraps(a_function)
     def logger(*args, **kwargs):
         run_datetime = datetime.now(pytz.UTC)
