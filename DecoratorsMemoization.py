@@ -65,7 +65,7 @@ print(f"Cache dictionary: {f1.cache}")
 # Recreating the previous examples with closures
 
 
-def fibonacci_recursive() -> FunctionType:
+def fibonacci_wrapper() -> FunctionType:
     """
     A decorator intended to wrap a fibonacci function.
     Implements a caching mechanism as a memoization system
@@ -88,7 +88,7 @@ def fibonacci_recursive() -> FunctionType:
     return inner
 
 
-f2 = fibonacci_recursive()
+f2 = fibonacci_wrapper()
 print(f2(10))
 print(type(f2))  # f1 is a function
 # Accessing the caching dictionary
