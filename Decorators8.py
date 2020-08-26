@@ -4,6 +4,8 @@ from types import FunctionType
 
 
 def function_timer(n: int):
+    """Decorator factory"""
+
     def _function_timer(fn: FunctionType):
         """
         Decorator function. Returns a closure that, when called,
@@ -39,11 +41,14 @@ def function_timer(n: int):
     return _function_timer
 
 
-@function_timer(2)
+@function_timer(100000)
 def add(x, y):
     for i in range(1):
         result = x + y
     return i
 
 
+print(f"add's free variables: {add.__code__.co_freevars}")
+print(f"add's closure cells: {add.__closure__}\n")
+print(f"Calling add:")
 add(10, 20)
