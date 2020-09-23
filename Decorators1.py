@@ -1,17 +1,25 @@
+"""Introducing decorators"""
+
+
+from types import FunctionType
+from typing import Any
+
+
 # Defining the decorator function
-def counter(function):
+def counter(a_func: FunctionType) -> FunctionType:
     """"
     Decorator function where the closure will print
     the count of times the passed function has been called.
     """
     count = 0
 
-    def inner(*args, **kwargs):
-        nonlocal count
+    def inner(*args, **kwargs) -> Any:
+        nonlocal count  # nonlocal because of assigment in next line
         count += 1
-        print(f"{function.__name__} has been called {count} times")
-        return function(*args, **kwargs)
-
+        print(f"{a_func.__name__} has been called {count} times")
+        # Return wrapped function returned value when called with passed args
+        return a_func(*args, **kwargs)
+    # Return the closure
     return inner
 
 
@@ -20,26 +28,40 @@ def add(x: int, y: int) -> int:
     return x + y
 
 
-# Implementing the decorator with traditional notation
+"""Implementing the decorator with traditional notation"""
 add = counter(add)
 
-print(f'"add" name after decoration: {add.__name__}')  # "inner" because of the closure
-print(add.__code__.co_freevars)  # ('count', 'function')
-print(add.__closure__)  # (cell, cell)
+
+print(add.__name__)  # "inner" because of the closure
+print(add.__code__.co_freevars)  # ('a_func', 'count')
+print(add.__closure__)  # (<cell for function>, <cell for int>)
+print(add.__annotations__)  # Annotations dictionary from "inner"
 help(add)  # Metadata of "inner" because of the closure
 print()
 
 
-# Implementing the decorator with the @ notation
+"""Implementing the decorator with @ notation"""
+
+
 @counter
 def sub(x: int, y: int) -> int:
     """Returns the substraction of the passed integers"""
     return x - y
 
 
-print(f'"sub" name after decoration: {sub.__name__}')  # "inner" because of the closure
-print(sub.__code__.co_freevars)
-print(sub.__closure__)
-print(sub.__annotations__)  # Annotations from "inner"
+print(sub.__name__)  # "inner" because of the closure
+print(sub.__code__.co_freevars)  # ('a_func', 'count')
+print(sub.__closure__)  # (<cell for function>, <cell for int>)
+print(sub.__annotations__)  # Annotations dictionary from "inner"
 help(sub)  # Metadata of "inner" because of the closure
 print()
+
+"""Using the decorated functions"""
+
+print(add(10, 20))  # add has been called 1 times -> 30
+print(add(20, 30))  # add has been called 2 times -> 50
+print(add(30, 40))  # add has been called 3 times -> 70
+print()
+print(sub(10, 20))  # sub has been called 1 times -> -10
+print(sub(20, 30))  # sub has been called 2 times -> -10
+print(sub(30, 40))  # sub has been called 3 times -> -10
