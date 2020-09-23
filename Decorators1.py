@@ -28,9 +28,17 @@ def add(x: int, y: int) -> int:
     return x + y
 
 
-# Implementing the decorator with traditional notation
+# Implementing the decorator with traditional and @ notation
 add = counter(add)
 
+
+@counter
+def sub(x: int, y: int) -> int:
+    """Returns the substraction of the passed integers"""
+    return x - y
+
+
+"""ORIGINAL METADATA IS LOST. INNER'S WILL BE DISPLAYED"""
 
 print(add.__name__)  # "inner" because of the closure
 print(add.__code__.co_freevars)  # ('a_func', 'count')
@@ -38,14 +46,6 @@ print(add.__closure__)  # (<cell for function>, <cell for int>)
 print(add.__annotations__)  # Annotations dictionary from "inner"
 help(add)  # Metadata of "inner" because of the closure
 print()
-
-
-# Implementing the decorator with @ notation
-@counter
-def sub(x: int, y: int) -> int:
-    """Returns the substraction of the passed integers"""
-    return x - y
-
 
 print(sub.__name__)  # "inner" because of the closure
 print(sub.__code__.co_freevars)  # ('a_func', 'count')
