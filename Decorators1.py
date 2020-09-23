@@ -28,7 +28,7 @@ def add(x: int, y: int) -> int:
     return x + y
 
 
-"""Implementing the decorator with traditional notation"""
+# Implementing the decorator with traditional notation
 add = counter(add)
 
 
@@ -40,9 +40,7 @@ help(add)  # Metadata of "inner" because of the closure
 print()
 
 
-"""Implementing the decorator with @ notation"""
-
-
+# Implementing the decorator with @ notation
 @counter
 def sub(x: int, y: int) -> int:
     """Returns the substraction of the passed integers"""
