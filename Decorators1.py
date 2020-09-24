@@ -14,13 +14,16 @@ def counter(a_func: FunctionType) -> FunctionType:
     count = 0
 
     def inner(*args, **kwargs) -> Any:
-        nonlocal count  # nonlocal because of assigment in next line
+        nonlocal count  # Free variable from outer scope
         count += 1
         print(f"{a_func.__name__} has been called {count} times")
-        # Return wrapped function returned value when called with passed args
+        # Return wrapped function return value when called with passed args
         return a_func(*args, **kwargs)
     # Return the closure
     return inner
+
+
+"""Implementing the decorator with traditional and @ notation"""
 
 
 def add(x: int, y: int) -> int:
@@ -28,7 +31,6 @@ def add(x: int, y: int) -> int:
     return x + y
 
 
-# Implementing the decorator with traditional and @ notation
 add = counter(add)
 
 
