@@ -27,7 +27,6 @@ def function_logger(a_func: FunctionType) -> FunctionType:
         # Printing logger info (to stdout but could be log server)
         print(f"{run_datetime}: called '{a_func.__name__}{all_args}'")
         return result
-    # Returning decorator
     return logger
 
 
