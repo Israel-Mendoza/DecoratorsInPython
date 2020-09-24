@@ -63,8 +63,8 @@ def function_logger(a_func: FunctionType) -> FunctionType:
 """Stacking decorators"""
 
 
-@function_logger  # To run second
-@function_timer  # To run first
+@function_logger  # Outer wrapping
+@function_timer  # Inner wrapping
 def factorial_recursive(n):
     def _factorial(n):
         if n == 1:
@@ -73,8 +73,8 @@ def factorial_recursive(n):
     return _factorial(n)
 
 
-@function_logger  # To run second
-@function_timer  # To run first
+@function_logger  # Outer wrapping
+@function_timer  # Inner wrapping
 def factorial_loop(n):
     result = n
     while n > 1:
@@ -83,8 +83,8 @@ def factorial_loop(n):
     return result
 
 
-@function_logger  # To run second
-@function_timer  # To run first
+@function_logger  # Outer wrapping
+@function_timer  # Inner wrapping
 def factorial_reduced(n):
     result = reduce(lambda x, y: x * y, range(1, n + 1))
     return result
