@@ -1,7 +1,12 @@
+"""Using the wraps() decorator to avoid function metadata loss"""
+
+
 from functools import wraps
+from types import FunctionType
+from typing import Any
 
 
-def counter(function):
+def counter(a_func: FunctionType) -> FunctionType:
     """"
     Decorator function where the closure will print
     the count of times the passed function has been called.
@@ -9,14 +14,14 @@ def counter(function):
     count = 0
 
     # @wraps(function)    <- Alternative notation to line 19
-    def inner(*args, **kwargs):
+    def inner(*args, **kwargs) -> Any:
         nonlocal count
         count += 1
-        print(f"{function.__name__} has been called {count} times")
-        return function(*args, **kwargs)
+        print(f"{a_func.__name__} has been called {count} times")
+        return a_func(*args, **kwargs)
 
-    # Transferring the metadata of the function to the closure
-    inner = wraps(function)(inner)
+    # Transferring the metadata of the function to the closure using wraps
+    inner = wraps(a_func)(inner)
     return inner
 
 
@@ -26,7 +31,7 @@ def add(x: int, y: int) -> int:
     return x + y
 
 
-print(f'"add" name after decoration: {add.__name__}')  # Correct name
+print(add.__name__)  # Original name
 print(add.__code__.co_freevars)
 print(add.__closure__)
 print(add.__annotations__)  # Correct annotations
