@@ -88,8 +88,8 @@ def reduce_fibonacci(n: int) -> int:
 
 
 """Testing decorated functions"""
-print(reduce_fibonacci(15))  # reduce_fibonacci(15) took 0.000013 seconds to run. -> 610
+reduce_fibonacci(15)  # reduce_fibonacci(15) took 0.000013 seconds to run. -> 610
 
-print(loop_fibonacci(15)) # loop_fibonacci(15) took 0.000004 seconds to run. -> 610
+loop_fibonacci(15) # loop_fibonacci(15) took 0.000004 seconds to run. -> 610
 
-print(recursive_fibonacci(15)) # recursive_fibonacci(15) took 0.000284 seconds to run. -> 610
+recursive_fibonacci(15) # recursive_fibonacci(15) took 0.000284 seconds to run. -> 610
