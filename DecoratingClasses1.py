@@ -29,7 +29,7 @@ class Person:
     """Simple representation of a person"""
 
     def __init__(self, name: str, age: int) -> None:
-        """Initialized the Person instance"""
+        """Initializing the Person instance"""
         self._name = name
         self._age = age
 
@@ -48,16 +48,16 @@ class Person:
         return self._age
 
     @age.setter
-    def age(self, value: int):
+    def age(self, value: int) -> None:
         self._age = value
 
 
 """Working with a custom class"""
 
 # Checking Person's namespace
-print(vars(Person)) # {... __init__, "name", "age" ...}
+print(vars(Person)) # {... __init__, "name", "age"...}
 
-# Confirming that the attribute doesn't exist yet
+# Confirming that the attribute "speak" doesn't exist yet
 print(hasattr(Person, "speak")) # False
 
 # Creating a Person instance
@@ -75,7 +75,7 @@ Person = add_instance_method(Person)
 # Checking Person's namespace
 print(vars(Person)) # {... __init__, "name", "age", "speak"...}
 
-# Confirming that the attribute exists now
+# Confirming that the attribute "speak" exists now
 print(hasattr(Person, "speak")) # True
 
 # Trying the "speak" attribute
@@ -88,7 +88,7 @@ except AttributeError as ex:
 """Working with an existing class"""
 
 
-# Confirming that the attribute doesn't exist yet
+# Confirming that the attribute "speak" doesn't exist yet
 print(hasattr(Fraction, "speak")) # False
 
 # Creating a Fraction instance
@@ -103,7 +103,7 @@ except AttributeError as ex:
 # Decorating the class (monkey patching it)
 Fraction = add_instance_method(Fraction)
 
-# Confirming that the attribute exists now
+# Confirming that the attribute "speak" exists now
 print(hasattr(Fraction, "speak")) # True
 
 # Trying the "speak" attribute
