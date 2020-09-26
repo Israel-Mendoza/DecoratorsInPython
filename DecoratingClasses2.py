@@ -1,6 +1,6 @@
 """
 Decorating classes by "monkey patching" them
-by adding a new instance method to its namespace.
+by adding a new instance method to their namespace.
 """
 
 
