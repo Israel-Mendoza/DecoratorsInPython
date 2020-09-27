@@ -1,4 +1,10 @@
-def complete_ordering(cls):
+"""Creating a class decorator that fills in ordering methods"""
+
+from math import sqrt
+from typing import Type
+
+
+def complete_ordering(cls: Type) -> Type:
     """
     Class decorator that fills in missing ordering methods,
     provided __eq__ and __lt__ are implemented.
@@ -9,48 +15,49 @@ def complete_ordering(cls):
         cls.__ge__ = lambda self, other: self == other or self > other
         cls.__le__ = lambda self, other: self == other or self < other
     else:
-        raise AttributeError("Either __eq__ or __lt__ are not implemented.")
+        raise AttributeError("Both __eq__ or __lt__ must be implemented.")
+    # Return patched class for reassigment
     return cls
 
 
+@complete_ordering
 class Point:
     """A class to represent a two-dimension point"""
 
-    from math import sqrt
-
-    def __init__(self, x, y):
+    def __init__(self, x: float, y: float):
         self.x = x
         self.y = y
 
-    def __abs__(self):
+    def __abs__(self) -> float:
         return sqrt(self.x ** 2 + self.y ** 2)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Point({self.x}, {self.y})"
 
-    def __eq__(self, other):
+    def __eq__(self, other: "Point") -> bool:
         if isinstance(other, Point):
             return self.x == other.x and self.y == other.y
         else:
             return False
 
-    def __lt__(self, other):
+    def __lt__(self, other: "Point") -> bool:
         if isinstance(other, Point):
             return abs(self) < abs(other)
         else:
             return NotImplemented
 
 
-Point = complete_ordering(Point)
+"""Creating Point instances"""
 
 p1 = Point(2, 3)
 p2 = Point(2, 3)
 p3 = Point(0, 0)
 
-print(p1 == p2)
-print(p1 != p2)
-print(p1 < p3)
-print(p1 > p3)
-print(p1 >= p2)
-print(p1 <= p2)
-print(dir(Point))
+"""Testing ordering methods"""
+
+print(p1 == p2) # True
+print(p1 != p2) # False
+print(p1 < p3)  # False
+print(p1 > p3)  # True
+print(p1 >= p2) # True
+print(p1 <= p2) # True
