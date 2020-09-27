@@ -24,7 +24,7 @@ def complete_ordering(cls: Type) -> Type:
 class Point:
     """A class to represent a two-dimension point"""
 
-    def __init__(self, x: float, y: float):
+    def __init__(self, x: float, y: float) -> None:
         self.x = x
         self.y = y
 
