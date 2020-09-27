@@ -22,7 +22,7 @@ def debug_info(storing_list: List[Any]) -> FunctionType:
         Sets attribute "debug" to the passed class by assigning the 
         "inner" function.
         """
-        def inner(self):
+        def inner(self) -> None:
             """
             Creates and appends the instance snapshot 
             to the "storing_list" free variable.
