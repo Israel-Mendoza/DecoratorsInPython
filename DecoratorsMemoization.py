@@ -72,8 +72,8 @@ Calculations are duplicated, which can be expensive.
 
 
 """
-Implementing dictionaries in a class as a chaching 
-mechanisms to prevent inecessary calculations.
+Implementing dictionaries in a class as a caching 
+mechanisms to prevent innecessary calculations.
 """
 
 
@@ -100,7 +100,7 @@ class FibonacciClass:
         stores it in the cache dictionary.
         """
         if n not in self.cache:
-            # Prints the object calling only wheb
+            # Prints the object calling only when
             # values are calculated
             print(f"Calculating fib({n})")
             self.cache[n] = self(n - 1) + self(n - 2)
@@ -130,18 +130,18 @@ print(f1.cache)
 
 
 """
-Implementing dictionaries in a class as a chaching 
-mechanisms to prevent inecessary calculations.
+Implementing dictionaries in a class as a caching 
+mechanisms to prevent innecessary calculations.
 """
 
 
 def fibonacci_function() -> FunctionType:
     """
-    Returns a fibonacci calculator function.
+    Returns a fibonacci calculator closure function.
     Returned function implements a caching dictionary 
     as a memoization mechanism.
     """
-    #Initializing the caching mechanism containing
+    # Initializing the caching mechanism containing
     # known values for fibonacci(1) and fibonacci(2).
     _cache = {1: 1, 2: 1}
 
@@ -156,7 +156,7 @@ def fibonacci_function() -> FunctionType:
 
     # Making the _cache dictionary available through an interface
     inner.cache = _cache
-
+    # Returning the closure
     return inner
 
 
@@ -180,3 +180,8 @@ print(type(f2))  # <class 'function'>
 # Accessing the caching dictionary
 print(f2.cache)
 # {1: 1, 2: 1, 3: 2, 4: 3, 5: 5, 6: 8, 7: 13, 8: 21, 9: 34, 10: 55}
+
+# f2 is a closure
+print(f2.__code__.co_freevars) # ('_cache', 'inner')
+print(f2.__closure__)
+# (<cell at 0x03B82790: dict object at 0x03B87D70>, <cell at 0x03B827A8: function object at 0x03B85BF8>)
