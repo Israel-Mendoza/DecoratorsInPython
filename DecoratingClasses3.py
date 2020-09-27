@@ -24,7 +24,8 @@ def debug_info(storing_list: List[Any]) -> FunctionType:
         """
         def inner(self):
             """
-            Creates and appends the instance snapshot to the "storing_list" free variable.
+            Creates and appends the instance snapshot 
+            to the "storing_list" free variable.
             """
             # Creating the snapshot list
             results = []
