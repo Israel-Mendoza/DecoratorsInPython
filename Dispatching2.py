@@ -56,29 +56,26 @@ def html_float(arg: float) -> str:
     return f'{arg:.2f}'
 
 
-"""Creating a dispatch function using if else statements"""
+"""Creating a dispatch function using a registry dictionary"""
 
 
 def html_format(arg: Any) -> str:
     """
     Dispatcher function:
     Cons:
-        Awful code full of if else statements.
-        Hard coded logic.
-        Difficult to modify from the outside.
+        Hard coded registry, difficult to modify from the outside.
     """
-    if isinstance(arg, str):
-        return html_str(arg)
-    elif isinstance(arg, int):
-        return html_int(arg)
-    elif isinstance(arg, float):
-        return html_float(arg)
-    elif isinstance(arg, list) or isinstance(arg, tuple):
-        return html_list(arg)
-    elif isinstance(arg, dict):
-        return html_dict(arg)
-    else:
-        return html_escape(arg)
+    registry = {
+        object: html_escape,
+        str: html_str,
+        int: html_int,
+        float: html_float,
+        list: html_list,
+        tuple: html_list,
+        dict: html_dict
+    }
+
+    return registry.get(type(arg), registry[object])(arg)
 
 
 a = [
@@ -91,20 +88,3 @@ a = [
 ]
 
 print(html_format(a))
-# <ul>
-# 	<li>Hello<br/>
-# Fucking<br/>
-# Bitches<br/>
-# </li>
-# 	<li><ul>
-# 	<li>1 (0x1)</li>
-# 	<li>2 (0x2)</li>
-# 	<li>3 (0x3)</li>
-# </ul></li>
-# 	<li>100 (0x64)</li>
-# 	<li><ul>
-# 	<li>uno: un</li>
-# 	<li>dos: deux</li>
-# 	<li>tres: trois</li>
-# </ul></li>
-# </ul>
