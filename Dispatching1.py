@@ -1,4 +1,4 @@
-"""Making a case use for dispatching"""
+"""Making a case use for dispatching - Part 1"""
 
 from html import escape
 from typing import Any
@@ -26,9 +26,9 @@ def html_int(arg: Any) -> str:
     return f"{arg} ({hex(arg)})"
 
 
-def html_list(arg: Any) -> str:
+def html_list(arg: list) -> str:
     """
-    Returns a string where each item is wrapped in a 
+    Returns a string where each item is wrapped in a
     <li></li> tag.
     The string is wrapped in a <ul></ul>
     """
@@ -37,9 +37,9 @@ def html_list(arg: Any) -> str:
     return f"<ul>\n{arg}\n</ul>"
 
 
-def html_dict(arg):
+def html_dict(arg: dict):
     """
-    Returns a string where each key-value pair 
+    Returns a string where each key-value pair
     is wrapped in a <li></li> tag.
     The string is wrapped in a <ul></ul>
     """
@@ -53,7 +53,7 @@ def html_float(arg: float) -> str:
     Returns a string containing the float
     formated to contain 2 decimals.
     """
-    return f'{arg:.2f}'
+    return f"{arg:.2f}"
 
 
 """Creating a dispatch function using if else statements"""
@@ -87,7 +87,7 @@ a = [
     """,
     (1, 2, 3),
     100,
-    {"uno": "un", "dos": "deux", "tres": "trois"}
+    {"uno": "un", "dos": "deux", "tres": "trois"},
 ]
 
 print(html_format(a))

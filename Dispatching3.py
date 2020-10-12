@@ -1,10 +1,10 @@
-"""Introducing a decorator for dispatching"""
+"""Introducing a decorator for dispatching - Part 1"""
 
-from types import FunctionType
 from html import escape
+from typing import Any, Callable
 
 
-def single_dispatch(a_func: FunctionType) -> FunctionType:
+def single_dispatch(a_func: Callable) -> Callable:
     """
     Single dispatch decorator used with a function that
     takes 1 parameter.
@@ -17,7 +17,7 @@ def single_dispatch(a_func: FunctionType) -> FunctionType:
     registry = {}
     registry[object] = a_func
 
-    def inner(arg):
+    def inner(arg: Any) -> Any:
         return registry[object](arg)
 
     inner.reg = registry
@@ -27,7 +27,7 @@ def single_dispatch(a_func: FunctionType) -> FunctionType:
 """Declaring a function"""
 
 
-def htmlize(arg):
+def htmlize(arg: Any) -> str:
     return escape(str(arg))
 
 

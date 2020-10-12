@@ -1,10 +1,10 @@
-"""Introducing a decorator for dispatching"""
+"""Introducing a decorator for dispatching - Part 2"""
 
-from types import FunctionType
 from html import escape
+from typing import Callable
 
 
-def single_dispatch(a_func: FunctionType) -> FunctionType:
+def single_dispatch(a_func: Callable) -> Callable:
     """
     Single dispatch decorator used with a function that
     takes 1 parameter.
@@ -35,8 +35,8 @@ def htmlize(arg):
 
 
 print(htmlize("AT&T"))
-# AT&amp;T
+# AT&amp;T  // Str was hardcoded in decorator
 print(htmlize(10))
-# 10 (0xa)
+# 10 (0xa)  // Int was hardcoded in decorator
 print(htmlize([1, 2, 3]))
-# [1, 2, 3]
+# [1, 2, 3] // list type was not hardcoded in decorator
